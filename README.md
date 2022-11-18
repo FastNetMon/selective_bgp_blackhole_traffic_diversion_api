@@ -1,6 +1,6 @@
 In this guide we will describe required steps to announce hosts from first host group as /32 with specific community (blackhole for example) and hosts from second host group as /24 to DDoS scrubbing centrer via API. Host group is a group of multiple networks in CIDR format.
 
-This assumes that you have configured BGP connection. Please follow quick start guide for it.
+This assumes that you have configured BGP connection. Please follow official [guide](https://fastnetmon.com/docs-fnm-advanced/fastnetmon-bgp-unicast-configuration/) for it.
 
 After configuring BGP, please disable any standard actions for BGP. We will use notify script instead because we need custom logic:
 ```
