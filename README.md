@@ -45,7 +45,7 @@ Then you need to install DDoS scrubbing center integration with [F5 SilverLine](
 
 Please install JSON processing library for Perl:
 ```
-sudo apt-get install -y libjson-perl git 
+sudo apt-get install -y libjson-perl libipc-run-perl git 
 ```
 
 Finally, you need to download script from GitHub:
@@ -77,5 +77,5 @@ sudo fcli set blackhole 10.10.10.10
 
 You can debug actions from our script using this command:
 ```
-sudo tail -f /tmp/fastnetmon_notify_script.log
+sudo tail -f /tmp/selective_bgp_blackhole_traffic_diversion_api.log
 ```

@@ -4,14 +4,14 @@ use strict;
 use warnings;
  
 use JSON;
- 
+use IPC::Run qw(run); 
 use Data::Dumper;
 
 my $community_host_to_blackhole = '65000:777';
  
 # Write some debug to /tmp
  
-open my $fl, ">>", "/tmp/fastnetmon_notify_script.log" or die "Could not open file for writing";
+open my $fl, ">>", "/tmp/selective_bgp_blackhole_traffic_diversion_api.log" or die "Could not open file for writing";
  
 # This script executed from FastNetMon this way: ban 11.22.33.44
  
@@ -48,21 +48,20 @@ my $command = '';
 if ($host_group eq 'host_to_scrubbing') {
     my $host_network = $attack_details->{attack_details}->{host_network};
 
-    if ($action eq 'ban') {
-        $command = "gobgp global rib add -a ipv4 $host_network community $community_host_to_scrubbing";
-    } elsif ($action eq 'unban') {
-        $command = "gobgp global rib del -a ipv4 $host_network";
-    } else {
-        die "Unknown action $action";
-    }
+    my ($out, $err);
 
-    print {$fl} "Will execute command $command for group $host_group\n";
-    my $res = system($command);
+    my $scrubbing_integration_path = '/usr/local/bin/scrubbing_services_integration';
 
-    if ($res != 0) {
-        print {$fl} "Command failed with code $res\n";
+    print {$fl} "Will execute command $scrubbing_integration_path for group $host_group\n";
+
+    # Pass all stdin arguments as-is to DDoS Scrubbing integration script
+    my $result_of_call = run [ $scrubbing_integration_path ], \$input_attack_details, \$out, \$err;
+
+    if ($result_of_call) {
+        # Successfully executed it: https://metacpan.org/pod/IPC::Run#RETURN-VALUES
+        print {$fl} "Scrubbing integration successfully finished. Std out: $out std err: $err\n";
     } else {
-        print {$fl} "Command executed correctly\n";
+        print {$fl} "Scrubbing integration code returned error. Std out: $out std err: $err\n";
     }
 
 } elsif ($host_group eq 'host_to_blackhole') {
