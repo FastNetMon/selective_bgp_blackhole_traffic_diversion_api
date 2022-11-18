@@ -51,7 +51,7 @@ sudo apt-get install -y libjson-perl libipc-run-perl git
 Finally, you need to download script from GitHub:
 ```
 git clone git@github.com:FastNetMon/selective_bgp_blackhole_traffic_diversion_api.git
-cd selective_blackhole_traffic_diversion
+cd selective_bgp_blackhole_traffic_diversion_api
 sudo cp notify_json.pl /usr/local/bin/notify_json.pl
 ```
 
