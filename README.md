@@ -1,4 +1,4 @@
-In this guide we will describe required steps to announce hosts from first host group as /32 with specific community (blackhole for example) and hosts from second host group as /24 to DDoS scrubbing centrer via API. Host group is a group of multiple networks in CIDR format.
+In this guide we will describe required steps to announce hosts from first host group as /32 with specific community (blackhole for example) and hosts from second host group as /24 to DDoS scrubbing centrer via API (supported for F5 and Path.Net). Host group is a group of multiple networks in CIDR format.
 
 This assumes that you have configured BGP connection. Please follow official [guide](https://fastnetmon.com/docs-fnm-advanced/fastnetmon-bgp-unicast-configuration/) for it.
 
